@@ -16,7 +16,7 @@ class ListProduct extends Model
         "measure_symbol",
         "package_quantity",
         "measure_id",
-        "package_id",
+        "package_id", 
         "product_id",
         "loading_slip_id",
     ];
