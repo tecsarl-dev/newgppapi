@@ -20,7 +20,7 @@ class LoadingSlipRepository
         return;
     }
 
-    public function findAll(): Collection | LoadingSlipCollection
+    public function findAll()
     {
         $result = $this->model->when(request('s'),function($query) {
             $query->where('loading_slips.loading_number','like',"%".request('s')."%");
