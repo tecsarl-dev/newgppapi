@@ -3,10 +3,11 @@
 namespace App\Gpp\Deliveries;
 
 use Illuminate\Support\Str;
+use App\Gpp\ListProducts\ListProduct;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Delivery extends Model
 {
@@ -31,7 +32,7 @@ class Delivery extends Model
 
     public function listProducts(): HasMany
     {
-        return $this->hasMany('App\Gpp\ListProducts\ListProduct');
+        return $this->hasMany(ListProduct::class);
     }
 
     public function station(): BelongsTo
