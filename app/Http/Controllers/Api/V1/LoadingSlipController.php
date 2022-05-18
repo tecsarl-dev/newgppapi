@@ -31,7 +31,6 @@ class LoadingSlipController extends Controller
     public function index()
     {
         $loadingSlip = $this->loadingRepo->findAll();
-        dd($loadingSlip);
         return response()->json([
             'data' => new LoadingSlipCollection($loadingSlip),
         ],200);
