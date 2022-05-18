@@ -58,7 +58,7 @@ class AuthController extends Controller
       if (!$user->hasVerifiedEmail()) {
         $user->markEmailAsVerified();
 
-        return redirect()->away('http://localhost:3000/auth/email-verified');
+        return redirect()->away('https://beta.tecbill.net/auth/email-verified');
       }
     } catch (NotFoundHttpException $th) {
       throw $th;
