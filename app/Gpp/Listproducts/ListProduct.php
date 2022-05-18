@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Gpp\Listproducts;
+namespace App\Gpp\ListProducts;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
