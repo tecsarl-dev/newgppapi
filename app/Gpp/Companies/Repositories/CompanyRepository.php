@@ -9,6 +9,7 @@ use App\Gpp\Localities\Locality;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Rap2hpoutre\FastExcel\Facades\FastExcel;
 
 class CompanyRepository
@@ -24,10 +25,30 @@ class CompanyRepository
         return;
     }
 
-    public function findAll(): Collection
+    public function findAll()
     {
-        $companies = $this->model->all()->sortDesc();
-        return $companies;
+        $companyConnected = Company::findOrFail(Auth::user()->company_id);
+
+        $companies = $this->model->when(request('s'), function ($query) {
+            $query->where('name','like',"%".request('s')."%");
+        })
+        ->when(request("type"), function ($query) {
+            $query->where("type_company",request("type"));
+        })
+        ->when(!request("type") && $companyConnected->type_company == 'petroleum', function ($query) {
+            $query->where("type_company",'transporter');
+        })
+        ->orderBy('name','ASC');
+
+        if (request('s')) {
+            if (request("trucks")) {
+                $companies = $companies->with("active_trucks");
+            }
+            return $companies->select('id as id','name',"ifu","rccm")->get();
+        } else {
+            return $companies->get()->sortDesc();
+        }
+       
     }
 
     public function find(int $id)
@@ -43,6 +64,10 @@ class CompanyRepository
     public function save(Array $data)
     {
         try {
+            $companyConnected = Company::findOrFail(Auth::user()->company_id);
+            if ($companyConnected->type_company == 'petroleum') {
+                $data["type_company"] = "transporter";
+            }
             $company = $this->model->create($data);
             return $company->fresh();
         } catch (QueryException $th) {

@@ -13,6 +13,8 @@ class Measure extends Model
         'name',
         'symbol',
     ];
+    
+    public $timestamps = false;
 
     public function products(): HasMany
     {

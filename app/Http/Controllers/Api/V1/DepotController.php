@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Gpp\Depots\Depot;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Gpp\Depots\Repositories\DepotRepository;
@@ -15,6 +16,7 @@ class DepotController extends Controller
     public function __construct(DepotRepository $depotRepo)
     {
         $this->depotRepo = $depotRepo;
+        $this->middleware(['auth:sanctum']);
     }
 
 
@@ -25,9 +27,11 @@ class DepotController extends Controller
      */
     public function index()
     {
-        $product = $this->depotRepo->findAll();
+        $this->authorize("viewAny", Depot::class);
+
+        $depot = $this->depotRepo->findAll();
         return response()->json([
-            'data' => new DepotCollection($product),
+            'data' => new DepotCollection($depot),
         ],200);
     }
 
@@ -39,10 +43,12 @@ class DepotController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        $product = $this->depotRepo->save($request->all());
+        $this->authorize("create", Depot::class);
+
+        $depot = $this->depotRepo->save($request->all());
         return response()->json([
             'message'=>"Depot sauvegardé",
-            'data' => new DepotResource($product)
+            'data' => new DepotResource($depot)
         ],201);
     }
 
@@ -54,9 +60,11 @@ class DepotController extends Controller
      */
     public function show($id)
     {
-        $product = $this->depotRepo->find($id);
+        $this->authorize("view", Depot::class);
+
+        $depot = $this->depotRepo->find($id);
         return response()->json([
-            'data' => $product,
+            'data' => $depot,
         ],200);
     }
 
@@ -69,10 +77,12 @@ class DepotController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = $this->depotRepo->update($request->all(),$id);
+        $this->authorize("update", Depot::class);
+
+        $depot = $this->depotRepo->update($request->all(),$id);
         return response()->json([
             'message'=>"Depot sauvegardé",
-            'data' => new DepotResource($product)
+            'data' => new DepotResource($depot)
         ],200);
     }
 
@@ -84,7 +94,9 @@ class DepotController extends Controller
      */
     public function destroy($id)
     {
-        $product = $this->depotRepo->destroy($id);
+        $this->authorize("delete", Depot::class);
+
+        $depot = $this->depotRepo->destroy($id);
         return response()->json([
             'message' => "Depot supprimé"
         ],200);

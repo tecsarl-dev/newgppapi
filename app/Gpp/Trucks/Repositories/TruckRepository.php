@@ -13,9 +13,9 @@ class TruckRepository
      * Constructeur
      * @return void
      */
-    public function __construct(Truck $depot)
+    public function __construct(Truck $truck)
     {
-        $this->model = $depot;
+        $this->model = $truck;
         return;
     }
 
@@ -43,8 +43,8 @@ class TruckRepository
     public function save(Array $data)
     {
         try {
-            $depot = $this->model->create($data);
-            return $depot->fresh();
+            $truck = $this->model->create($data);
+            return $truck->fresh();
         } catch (QueryException $th) {
             throw $th;
         }
@@ -53,9 +53,9 @@ class TruckRepository
     public function update(Array $data,int $id)
     {
         try {
-            $depot = $this->model->findOrFail($id);
-            $depot->update($data);
-            return $depot->fresh();
+            $truck = $this->model->findOrFail($id);
+            $truck->update($data);
+            return $truck->fresh();
         } catch (QueryException $th) {
             Log::error($th->getMessage());
             throw $th;
@@ -65,8 +65,8 @@ class TruckRepository
     public function destroy($id)
     {
         try {
-            $depot = $this->model->findOrFail($id);
-            $depot->delete();
+            $truck = $this->model->findOrFail($id);
+            $truck->delete();
             return true;
         } catch (QueryException $th) {
             Log::error($th->getMessage());

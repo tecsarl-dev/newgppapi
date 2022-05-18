@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Gpp\Trucks\Repositories\TruckRepository;
 use App\Gpp\Trucks\Requests\CreateRequest;
+use App\Gpp\Trucks\Truck;
 use App\Http\Resources\TruckCollection;
 use App\Http\Resources\TruckResource;
+use Illuminate\Support\Facades\Auth;
 
 class TruckController extends Controller
 {
@@ -15,6 +17,8 @@ class TruckController extends Controller
     public function __construct(TruckRepository $truckRepo)
     {
         $this->truckRepo = $truckRepo;
+        $this->middleware(['auth:sanctum']); 
+
     }
 
 
@@ -25,6 +29,8 @@ class TruckController extends Controller
      */
     public function index()
     {
+        $this->authorize("viewAny",Truck::class);
+
         $product = $this->truckRepo->findAll();
         return response()->json([
             'data' => new TruckCollection($product),
@@ -39,6 +45,8 @@ class TruckController extends Controller
      */
     public function store(CreateRequest $request)
     {
+        $this->authorize("create", Truck::class);
+
         $product = $this->truckRepo->save($request->all());
         return response()->json([
             'message'=>"Camion sauvegardé",
@@ -54,6 +62,8 @@ class TruckController extends Controller
      */
     public function show($id)
     {
+        $this->authorize("view", Truck::class);
+
         $product = $this->truckRepo->find($id);
         return response()->json([
             'data' => $product,
@@ -69,6 +79,8 @@ class TruckController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize("update", Truck::class);
+
         $product = $this->truckRepo->update($request->all(),$id);
         return response()->json([
             'message'=>"Camion sauvegardé",
@@ -84,6 +96,8 @@ class TruckController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize("delete", Truck::class);
+
         $product = $this->truckRepo->destroy($id);
         return response()->json([
             'message' => "Camion supprimé"

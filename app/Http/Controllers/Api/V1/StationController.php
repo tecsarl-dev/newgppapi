@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Gpp\Stations\Repositories\StationRepository;
 use App\Gpp\Stations\Requests\CreateRequest;
+use App\Gpp\Stations\Station;
 use App\Http\Resources\StationCollection;
 use App\Http\Resources\StationResource;
+use Illuminate\Support\Facades\Auth;
 
 class StationController extends Controller
 {
@@ -15,6 +17,7 @@ class StationController extends Controller
     public function __construct(StationRepository $stationRepo)
     {
         $this->stationRepo = $stationRepo;
+        $this->middleware(['auth:sanctum']); 
     }
 
 
@@ -24,7 +27,9 @@ class StationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    { 
+        $this->authorize("viewAny", Station::class);
+
         $station = $this->stationRepo->findAll();
         return response()->json([
             'data' => new StationCollection($station),
@@ -39,6 +44,8 @@ class StationController extends Controller
      */
     public function store(CreateRequest $request)
     {
+        $this->authorize("create", Station::class);
+
         $station = $this->stationRepo->save($request->all());
         return response()->json([
             'message'=>"Station sauvegardé",
@@ -54,6 +61,8 @@ class StationController extends Controller
      */
     public function show($id)
     {
+        $this->authorize("view", Station::class);
+
         $station = $this->stationRepo->find($id);
         return response()->json([
             'data' => $station,
@@ -69,6 +78,8 @@ class StationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize("update", Station::class);
+
         $station = $this->stationRepo->update($request->all(),$id);
         return response()->json([
             'message'=>"Station sauvegardé",
@@ -84,6 +95,8 @@ class StationController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize("delete", Station::class);
+
         $station = $this->stationRepo->destroy($id);
         return response()->json([
             'message' => "Station supprimé"

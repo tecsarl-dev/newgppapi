@@ -3,7 +3,7 @@
 body,
 body *:not(html):not(style):not(br):not(tr):not(code) {
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+    font-family:'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     position: relative;
 }
@@ -11,7 +11,7 @@ body *:not(html):not(style):not(br):not(tr):not(code) {
 body {
     -webkit-text-size-adjust: none;
     background-color: #ffffff;
-    color: #718096;
+    color: #282f66;
     height: 100%;
     line-height: 1.4;
     margin: 0;
@@ -38,15 +38,15 @@ a img {
 /* Typography */
 
 h1 {
-    color: #3d4852;
-    font-size: 18px;
+    color: #3869d4;
+    font-size: 17px;
     font-weight: bold;
     margin-top: 0;
     text-align: left;
 }
 
 h2 {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     margin-top: 0;
     text-align: left;
@@ -60,14 +60,14 @@ h3 {
 }
 
 p {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5em;
     margin-top: 0;
     text-align: left;
 }
 
 p.sub {
-    font-size: 12px;
+    font-size: 10px;
 }
 
 img {
@@ -80,7 +80,7 @@ img {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 100%;
-    background-color: #edf2f7;
+    background-color: #fdfdfd;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -103,10 +103,14 @@ img {
 }
 
 .header a {
-    color: #3d4852;
-    font-size: 19px;
+    color: #3869d4;
+    font-size: 20px;
     font-weight: bold;
     text-decoration: none;
+}
+
+.header p {
+    font-size: 12px;
 }
 
 /* Logo */
@@ -123,9 +127,9 @@ img {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 100%;
-    background-color: #edf2f7;
-    border-bottom: 1px solid #edf2f7;
-    border-top: 1px solid #edf2f7;
+    background-color: #fdfdfd;
+    border-bottom: 1px solid #fdfdfd;
+    border-top: 1px solid #fdfdfd;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -135,11 +139,11 @@ img {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 570px;
-    background-color: #ffffff;
-    border-color: #e8e5ef;
+    background-color: #fdfdfd;
+    border-color: #fdfdfd;
     border-radius: 2px;
     border-width: 1px;
-    box-shadow: 0 2px 0 rgba(0, 0, 150, 0.025), 2px 4px 0 rgba(0, 0, 150, 0.015);
+    /* box-shadow: 0 2px 0 rgba(0, 0, 150, 0.025), 2px 4px 0 rgba(0, 0, 150, 0.015); */
     margin: 0 auto;
     padding: 0;
     width: 570px;
@@ -148,13 +152,13 @@ img {
 /* Subcopy */
 
 .subcopy {
-    border-top: 1px solid #e8e5ef;
+    border-top: 1px solid #fdfdfd;
     margin-top: 25px;
     padding-top: 25px;
 }
 
 .subcopy p {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 /* Footer */
@@ -170,13 +174,13 @@ img {
 }
 
 .footer p {
-    color: #b0adc5;
+    color: #343d58;
     font-size: 12px;
     text-align: center;
 }
 
 .footer a {
-    color: #b0adc5;
+    color: #343d58;
     text-decoration: underline;
 }
 
@@ -198,7 +202,7 @@ img {
 
 .table td {
     color: #74787e;
-    font-size: 15px;
+    font-size: 13px;
     line-height: 18px;
     margin: 0;
     padding: 10px 0;
@@ -223,7 +227,8 @@ img {
 
 .button {
     -webkit-text-size-adjust: none;
-    border-radius: 4px;
+    border-radius: 2px;
+    font-size: 12px;
     color: #fff;
     display: inline-block;
     overflow: hidden;
@@ -232,11 +237,11 @@ img {
 
 .button-blue,
 .button-primary {
-    background-color: #2d3748;
-    border-bottom: 8px solid #2d3748;
-    border-left: 18px solid #2d3748;
-    border-right: 18px solid #2d3748;
-    border-top: 8px solid #2d3748;
+    background-color: #007bff;
+    border-bottom: 8px solid #007bff;
+    border-left: 18px solid #007bff;
+    border-right: 18px solid #007bff;
+    border-top: 8px solid #007bff;
 }
 
 .button-green,
@@ -260,12 +265,12 @@ img {
 /* Panels */
 
 .panel {
-    border-left: #2d3748 solid 4px;
+    border-left: #007bff solid 4px;
     margin: 21px 0;
 }
 
 .panel-content {
-    background-color: #edf2f7;
+    background-color: #fdfdfd;
     color: #718096;
     padding: 16px;
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Gpp\Packages\Package;
+use App\Gpp\Products\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Gpp\Products\Repositories\ProductRepository;
@@ -16,6 +17,7 @@ class ProductController extends Controller
     public function __construct(ProductRepository $productRepo)
     {
         $this->productRepo = $productRepo;
+        $this->middleware(['auth:sanctum']);
     }
 
 
@@ -26,6 +28,8 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $this->authorize("viewAny", Product::class);
+
         $product = $this->productRepo->findAll();
         return response()->json([
             'data' => new ProductCollection($product),
@@ -40,6 +44,8 @@ class ProductController extends Controller
      */
     public function store(CreateRequest $request)
     {
+        $this->authorize("create", Product::class);
+
         $product = $this->productRepo->save($request->all());
         return response()->json([
             'message'=>"Produit sauvegardé",
@@ -55,6 +61,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
+        $this->authorize("view", Product::class);
+
         $product = $this->productRepo->find($id);
         return response()->json([
             'data' => $product,
@@ -70,6 +78,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize("update", Product::class);
+
         $product = $this->productRepo->update($request->all(),$id);
         return response()->json([
             'message'=>"Produit sauvegardé",
@@ -85,6 +95,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize("delete", Product::class);
+
         $product = $this->productRepo->destroy($id);
 
         return response()->json([

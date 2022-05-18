@@ -1,15 +1,10 @@
 <?php
 namespace App\Gpp\Departments\Repositories;
 
-use App\Gpp\Communes\Commune;
-use Illuminate\Support\Facades\DB;
 use App\Gpp\Departments\Department;
-use App\Gpp\Districts\District;
-use App\Gpp\Localities\Locality;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\Collection;
-use Rap2hpoutre\FastExcel\Facades\FastExcel;
 
 class DepartmentRepository
 {
@@ -41,46 +36,6 @@ class DepartmentRepository
             $department = $this->model->create($data);
             return $department->fresh();
         } catch (QueryException $th) {
-            throw $th;
-        }
-    }
-
-    public function importFile(string $file)
-    {
-        try {
-            DB::beginTransaction();
-            $departments = FastExcel::import(storage_path('/app/public/imports/'.$file),function($line){
-                $department =  Department::firstOrCreate([
-                    "name" => strtolower($line["Departements"]),
-                ]);
-
-                $commune = Commune::firstOrCreate([
-                    "name" => strtolower($line["Communes"]),
-                    "department_id" =>$department->id,
-                ]);
-
-                $district = District::firstOrCreate([
-                    "code" => strtolower($line["Arrondissements"]).'-'.$commune->id,
-                    "name" => strtolower($line["Arrondissements"]),
-                    "commune_id" =>$commune->id,
-                ]);
-
-                $dataLocality = explode(',', $line["Villages ou quartiers de ville"]);
-
-                foreach ($dataLocality as $key => $value) {
-                    $locality = Locality::firstOrCreate([
-                        "code" => strtolower($value).'-'.$district->id,
-                        "name" => strtolower($value),
-                        "district_id" =>$district->id,
-                    ]);
-                }
-
-            });
-            DB::commit();
-            return $departments;
-        } catch (QueryException $th) {
-            DB::rollBack();
-            Log::error($th->getMessage());
             throw $th;
         }
     }

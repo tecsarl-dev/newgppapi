@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Gpp\Companies\Company;
+use Illuminate\Http\Request;
 use App\Gpp\Traits\UploadableTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CompanyResource;
@@ -13,9 +15,11 @@ class CompanyController extends Controller
 {
     use UploadableTrait;
     private $companyRepo;
+
     public function __construct(CompanyRepository $companyRepo)
     {
         $this->companyRepo = $companyRepo;
+        $this->middleware(['auth:sanctum']);
     }
 
 
@@ -26,6 +30,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
+        $this->authorize("viewAny", Company::class);
+
         $companies = $this->companyRepo->findAll();
         return response()->json([
             'data' => new CompanyCollection($companies),
@@ -40,6 +46,8 @@ class CompanyController extends Controller
      */
     public function store(CreateRequest $request)
     {
+        $this->authorize("create", Company::class);
+
         $company = $this->companyRepo->save($request->all());
         return response()->json([
             'message'=>"Entreprise sauvegardée",
@@ -55,6 +63,8 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
+        $this->authorize("view",Company::class);
+
         $company = $this->companyRepo->find($id);
         return response()->json([
             'data' => new CompanyResource($company),
@@ -70,6 +80,8 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize("update", Company::class);
+
         $company = $this->companyRepo->update($request->all(),$id);
         return response()->json([
             'message'=>"Entreprise sauvegardée",
@@ -85,6 +97,8 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize("delete", Company::class);
+
         $company = $this->companyRepo->destroy($id);
 
         return response()->json([

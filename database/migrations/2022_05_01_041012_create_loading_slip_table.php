@@ -15,9 +15,11 @@ class CreateLoadingSlipTable extends Migration
     {
         Schema::create('loading_slips', function (Blueprint $table) {
             $table->id();
-            $table->uuid('code');
-            $table->string('qr_code');
+            $table->uuid('code')->unique();
+            $table->string('qr_code')->nullable();
             $table->string('loading_type');
+            $table->string('loading_number');
+            $table->string('loading_number_code')->unique();
             $table->string('driver_name');
             $table->string('driver_tel');
             $table->string('ref_avd')->nullable();

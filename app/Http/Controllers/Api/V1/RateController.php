@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Gpp\Rates\Rate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Gpp\Rates\Repositories\RateRepository;
@@ -15,6 +16,7 @@ class RateController extends Controller
     public function __construct(RateRepository $rateRepo)
     {
         $this->rateRepo = $rateRepo;
+        $this->middleware(['auth:sanctum']);
     }
 
 
@@ -25,9 +27,11 @@ class RateController extends Controller
      */
     public function index()
     {
-        $product = $this->rateRepo->findAll();
+        $this->authorize("viewAny", Rate::class);
+
+        $rate = $this->rateRepo->findAll();
         return response()->json([
-            'data' => new RateCollection($product),
+            'data' => new RateCollection($rate),
         ],200);
     }
 
@@ -39,10 +43,12 @@ class RateController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        $product = $this->rateRepo->save($request->all());
+        $this->authorize("create", Rate::class);
+
+        $rate = $this->rateRepo->save($request->all());
         return response()->json([
             'message'=>"Tarif sauvegardé",
-            'data' => new RateResource($product)
+            'data' => new RateResource($rate)
         ],201);
     }
 
@@ -54,9 +60,11 @@ class RateController extends Controller
      */
     public function show($id)
     {
-        $product = $this->rateRepo->find($id);
+        $this->authorize("view", Rate::class);
+
+        $rate = $this->rateRepo->find($id);
         return response()->json([
-            'data' => $product,
+            'data' => $rate,
         ],200);
     }
 
@@ -69,10 +77,12 @@ class RateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = $this->rateRepo->update($request->all(),$id);
+        $this->authorize("update", Rate::class);
+
+        $rate = $this->rateRepo->update($request->all(),$id);
         return response()->json([
             'message'=>"Tarif sauvegardé",
-            'data' => new RateResource($product)
+            'data' => new RateResource($rate)
         ],200);
     }
 
@@ -84,7 +94,9 @@ class RateController extends Controller
      */
     public function destroy($id)
     {
-        $product = $this->rateRepo->destroy($id);
+        $this->authorize("delete", Rate::class);
+
+        $rate = $this->rateRepo->destroy($id);
         return response()->json([
             'message' => "Tarif supprimé"
         ],200);
