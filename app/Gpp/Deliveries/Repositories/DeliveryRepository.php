@@ -24,7 +24,7 @@ class DeliveryRepository
         });
 
         if (request('s')) {
-            return new DeliveryCollection($result->get()->sortDesc());
+            return $result->get()->sortDesc();
         } else {
             return $result->get()->sortDesc();
         }

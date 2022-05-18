@@ -26,7 +26,7 @@ class LoadingSlipRepository
         });
 
         if (request('s')) {
-            return new LoadingSlipCollection($result->get()->sortDesc());
+            return $result->get()->sortDesc();
         } else {
             return $result->get()->sortDesc();
         }
