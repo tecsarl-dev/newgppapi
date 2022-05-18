@@ -1,6 +1,6 @@
 <?php
 
-namespace App\gpp\Listproducts\ListProduct\Requests;
+namespace App\Gpp\Listproducts\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

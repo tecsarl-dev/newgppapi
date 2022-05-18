@@ -1,6 +1,6 @@
 <?php
 
-namespace App\gpp\Listproducts;
+namespace App\Gpp\Listproducts;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,7 +28,7 @@ class ListProduct extends Model
 
     public function delivery(): BelongsTo
     {
-        return $this->belongsTo("App\Gpp\deliveries\delivery");
+        return $this->belongsTo("App\Gpp\Deliveries\Delivery");
     }
 
     public function product(): BelongsTo
