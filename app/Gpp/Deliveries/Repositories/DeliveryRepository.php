@@ -23,11 +23,7 @@ class DeliveryRepository
             $query->where('deliveries.delivery_number','like',"%".request('s')."%");
         });
 
-        if (request('s')) {
-            return $result->get()->sortDesc();
-        } else {
-            return $result->get()->sortDesc();
-        }
+        return $result->get()->sortDesc();
     }
 
     public function find($id)
