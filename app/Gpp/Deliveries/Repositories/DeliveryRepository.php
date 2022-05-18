@@ -17,7 +17,7 @@ class DeliveryRepository
         return;
     }
 
-    public function findAll(): Collection | DeliveryCollection
+    public function findAll()
     {
         $result = $this->model->when(request('s'),function($query) {
             $query->where('deliveries.delivery_number','like',"%".request('s')."%");
