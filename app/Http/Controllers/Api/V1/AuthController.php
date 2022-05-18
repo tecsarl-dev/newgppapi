@@ -12,7 +12,7 @@ use Illuminate\Auth\Events\Registered;
 use App\Gpp\Auth\Requests\LoginRequest;
 use Laravel\Sanctum\PersonalAccessToken;
 use App\Gpp\Auth\Requests\RegisterRequest;
-use App\Gpp\Auth\Repositories\AuthRepository;
+use App\Gpp\Auth\repositories\AuthRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AuthController extends Controller

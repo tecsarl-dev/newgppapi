@@ -1,5 +1,5 @@
 <?php
-namespace App\Gpp\Auth\Repositories;
+namespace App\Gpp\Auth\repositories;
 
 use App\Gpp\Roles\Role;
 use App\Gpp\Users\User;
