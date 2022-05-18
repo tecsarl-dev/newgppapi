@@ -5,7 +5,6 @@ use App\Gpp\LoadingSlips\LoadingSlip;
 use App\Http\Resources\LoadingSlipCollection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\QueryException;
-use Illuminate\Database\Eloquent\Collection;
 
 class LoadingSlipRepository
 {

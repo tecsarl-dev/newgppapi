@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Gpp\ListProducts;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;

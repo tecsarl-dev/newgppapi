@@ -12,8 +12,6 @@ class LoadingSlip extends Model
 {
     use HasFactory;
 
-    // protected $with = ["transporter","depot","truck","truckTrailer","listProducts"];
-
     protected $fillable = [
         "code",
         "qr_code",

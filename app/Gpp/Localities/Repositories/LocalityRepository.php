@@ -4,9 +4,7 @@ namespace App\Gpp\Localities\Repositories;
 use App\Gpp\Localities\Locality;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\QueryException;
-use Illuminate\Database\Eloquent\Collection;
 use App\Gpp\Communes\Commune;
-use App\Http\Resources\LocalitySearchCollection;
 
 class LocalityRepository
 {

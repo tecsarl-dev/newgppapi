@@ -36,32 +36,32 @@ class Delivery extends Model
 
     public function station(): BelongsTo
     {
-        return $this->belongsTo('App\Gpp\stations\station');
+        return $this->belongsTo('App\Gpp\Stations\Station');
     }
 
     public function communeStart(): BelongsTo
     {
-        return $this->belongsTo('App\Gpp\communes\commune');
+        return $this->belongsTo('App\Gpp\Communes\Commune');
     }
 
     public function communeEnd(): BelongsTo
     {
-        return $this->belongsTo('App\Gpp\communes\commune');
+        return $this->belongsTo('App\Gpp\Communes\Commune');
     }
 
     public function localityStart(): BelongsTo
     {
-        return $this->belongsTo('App\Gpp\localities\locality');
+        return $this->belongsTo('App\Gpp\Localities\Locality');
     }
 
     public function localityEnd(): BelongsTo
     {
-        return $this->belongsTo('App\Gpp\localities\locality');
+        return $this->belongsTo('App\Gpp\Localities\Locality');
     }
 
     public function loadingSlip(): BelongsTo
     {
-        return $this->belongsTo('App\Gpp\loadingSlips\loadingSlip');
+        return $this->belongsTo('App\Gpp\LoadingSlips\LoadingSlip');
     }
 
     public function removeDiff(array $data = [])
